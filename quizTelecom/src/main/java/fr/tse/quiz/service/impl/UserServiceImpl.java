@@ -2,6 +2,7 @@ package fr.tse.quiz.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,9 +23,14 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDAO;
 	
 	@Override
-	public User ajouterUser() {
+	public User ajouterUser(String motDePasse, String identifiant, Boolean admin, Map<String,Long> scoreAtQuiz, List<Quiz> quizs) {
 		// TODO Auto-generated method stub
 		User user = new User();
+		user.setMotDePasse(motDePasse);
+		user.setIdentifiant(identifiant);
+		user.setAdmin(admin);
+		user.setScoreAtQuiz(scoreAtQuiz);
+		user.setQuizs(quizs);
 		return user;
 	}
 

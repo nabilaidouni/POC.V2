@@ -20,9 +20,12 @@ public class ReponseServiceImpl implements ReponseService{
 	private ReponseDao reponseDAO;
 	
 	@Override
-	public Reponse ajouterReponse() {
+	public Reponse ajouterReponse(String intitule, Boolean isCorrect, Question question) {
 		// TODO Auto-generated method stub
 		Reponse reponse = new Reponse();
+		reponse.setIntitule(intitule);
+		reponse.setIsCorrect(isCorrect);
+		reponse.setQuestion(question);
 		return reponse;
 	}
 
