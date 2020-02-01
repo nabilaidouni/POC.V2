@@ -31,7 +31,7 @@
 	<div class= "container">
 	</div>
 	
-	<form  action="inscriptionPost" method="post" class="container rounded">
+	<form  action="quizNewPost" method="post" class="container rounded">
 	<div class="form-group">
 	    <label for="nom">Intitulé du quiz:</label>
 	    <input type="text" class="form-control" name="NOM" placeholder="Entrez l'intitulé" required>
@@ -50,9 +50,7 @@
 	  <c:forEach var="i" begin="0" end="3" step="1">
 	  <div class="form-group">
 		  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-		  <label class="form-check-label" for="exampleRadios1">
-		    Reponse ${i+1}
-		  </label>
+		  <label class="form-check-label" for="exampleRadios1">Reponse ${i+1}</label>
 		</div>
 		</c:forEach>
 	  
