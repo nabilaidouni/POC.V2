@@ -20029,3 +20029,98 @@ Caused by: org.hibernate.InstantiationException: No default constructor for enti
 	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor$LifecycleMetadata.invokeInitMethods(InitDestroyAnnotationBeanPostProcessor.java:309) ~[spring-beans-5.0.11.RELEASE.jar:5.0.11.RELEASE]
 	at org.springframework.beans.factory.annotation.InitDestroyAnnotationBeanPostProcessor.postProcessBeforeInitialization(InitDestroyAnnotationBeanPostProcessor.java:136) ~[spring-beans-5.0.11.RELEASE.jar:5.0.11.RELEASE]
 	... 23 more
+2020-02-03 11:01:05,031 INFO f.t.q.App [restartedMain] Starting App on LAPTOP-JCE7I9HP with PID 13072 (C:\Users\Lia\Desktop\POC.V2-master\quizTelecom\target\classes started by Lia in C:\Users\Lia\Desktop\POC.V2-master\quizTelecom)
+2020-02-03 11:01:05,047 INFO f.t.q.App [restartedMain] No active profile set, falling back to default profiles: default
+2020-02-03 11:01:05,201 INFO o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext [restartedMain] Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2439fdc0: startup date [Mon Feb 03 11:01:05 CET 2020]; root of context hierarchy
+2020-02-03 11:01:08,160 INFO o.s.b.c.e.t.TomcatEmbeddedServletContainer [restartedMain] Tomcat initialized with port(s): 82 (http)
+2020-02-03 11:01:08,847 INFO o.s.w.c.ContextLoader [localhost-startStop-1] Root WebApplicationContext: initialization completed in 3646 ms
+2020-02-03 11:01:09,119 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Mapping servlet: 'dispatcherServlet' to [/]
+2020-02-03 11:01:09,127 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Mapping servlet: 'webServlet' to [/h2-console/*]
+2020-02-03 11:01:09,129 INFO o.s.b.w.s.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-02-03 11:01:09,310 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Building JPA container EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:01:11,688 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:01:12,807 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/result],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView fr.tse.quiz.controller.QuizController.getResult(java.lang.Long)
+2020-02-03 11:01:12,807 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/index || /]}" onto public org.springframework.web.servlet.ModelAndView fr.tse.quiz.controller.QuizController.accueil()
+2020-02-03 11:01:12,817 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-02-03 11:01:12,817 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-03 11:01:12,877 INFO o.s.w.s.h.SimpleUrlHandlerMapping [restartedMain] Mapped URL path [/style/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-03 11:01:12,978 INFO o.s.w.s.m.m.a.RequestMappingHandlerAdapter [restartedMain] Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2439fdc0: startup date [Mon Feb 03 11:01:05 CET 2020]; root of context hierarchy
+2020-02-03 11:01:13,944 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-02-03 11:01:13,984 INFO o.s.j.e.a.AnnotationMBeanExporter [restartedMain] Registering beans for JMX exposure on startup
+2020-02-03 11:01:14,073 INFO o.s.b.c.e.t.TomcatEmbeddedServletContainer [restartedMain] Tomcat started on port(s): 82 (http)
+2020-02-03 11:01:14,075 INFO f.t.q.App [restartedMain] Started App in 9.413 seconds (JVM running for 11.787)
+2020-02-03 11:01:23,288 INFO o.s.w.s.DispatcherServlet [http-nio-82-exec-1] FrameworkServlet 'dispatcherServlet': initialization started
+2020-02-03 11:01:23,342 INFO o.s.w.s.DispatcherServlet [http-nio-82-exec-1] FrameworkServlet 'dispatcherServlet': initialization completed in 54 ms
+2020-02-03 11:01:56,641 INFO o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext [Thread-11] Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@2439fdc0: startup date [Mon Feb 03 11:01:05 CET 2020]; root of context hierarchy
+2020-02-03 11:01:56,657 INFO o.s.j.e.a.AnnotationMBeanExporter [Thread-11] Unregistering JMX-exposed beans on shutdown
+2020-02-03 11:01:56,657 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [Thread-11] Closing JPA EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:01:57,599 INFO f.t.q.App [restartedMain] Starting App on LAPTOP-JCE7I9HP with PID 13072 (C:\Users\Lia\Desktop\POC.V2-master\quizTelecom\target\classes started by Lia in C:\Users\Lia\Desktop\POC.V2-master\quizTelecom)
+2020-02-03 11:01:57,599 INFO f.t.q.App [restartedMain] No active profile set, falling back to default profiles: default
+2020-02-03 11:01:57,599 INFO o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext [restartedMain] Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@102140c3: startup date [Mon Feb 03 11:01:57 CET 2020]; root of context hierarchy
+2020-02-03 11:01:59,099 INFO o.s.b.c.e.t.TomcatEmbeddedServletContainer [restartedMain] Tomcat initialized with port(s): 82 (http)
+2020-02-03 11:01:59,421 INFO o.s.w.c.ContextLoader [localhost-startStop-1] Root WebApplicationContext: initialization completed in 1822 ms
+2020-02-03 11:01:59,453 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Mapping servlet: 'dispatcherServlet' to [/]
+2020-02-03 11:01:59,453 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Mapping servlet: 'webServlet' to [/h2-console/*]
+2020-02-03 11:01:59,453 INFO o.s.b.w.s.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-02-03 11:01:59,499 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Building JPA container EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:01:59,984 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:02:01,086 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/result],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView fr.tse.quiz.controller.QuizController.getResult(java.lang.Long)
+2020-02-03 11:02:01,086 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/index || /]}" onto public org.springframework.web.servlet.ModelAndView fr.tse.quiz.controller.QuizController.accueil()
+2020-02-03 11:02:01,086 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-02-03 11:02:01,086 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-03 11:02:01,101 INFO o.s.w.s.h.SimpleUrlHandlerMapping [restartedMain] Mapped URL path [/style/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-03 11:02:01,133 INFO o.s.w.s.m.m.a.RequestMappingHandlerAdapter [restartedMain] Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@102140c3: startup date [Mon Feb 03 11:01:57 CET 2020]; root of context hierarchy
+2020-02-03 11:02:01,304 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-02-03 11:02:01,336 INFO o.s.j.e.a.AnnotationMBeanExporter [restartedMain] Registering beans for JMX exposure on startup
+2020-02-03 11:02:01,351 INFO o.s.b.c.e.t.TomcatEmbeddedServletContainer [restartedMain] Tomcat started on port(s): 82 (http)
+2020-02-03 11:02:01,351 INFO f.t.q.App [restartedMain] Started App in 3.835 seconds (JVM running for 59.07)
+2020-02-03 11:02:13,067 INFO o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext [Thread-18] Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@102140c3: startup date [Mon Feb 03 11:01:57 CET 2020]; root of context hierarchy
+2020-02-03 11:02:13,067 INFO o.s.j.e.a.AnnotationMBeanExporter [Thread-18] Unregistering JMX-exposed beans on shutdown
+2020-02-03 11:02:13,067 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [Thread-18] Closing JPA EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:02:14,176 INFO f.t.q.App [restartedMain] Starting App on LAPTOP-JCE7I9HP with PID 13072 (C:\Users\Lia\Desktop\POC.V2-master\quizTelecom\target\classes started by Lia in C:\Users\Lia\Desktop\POC.V2-master\quizTelecom)
+2020-02-03 11:02:14,176 INFO f.t.q.App [restartedMain] No active profile set, falling back to default profiles: default
+2020-02-03 11:02:14,192 INFO o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext [restartedMain] Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@50ff2342: startup date [Mon Feb 03 11:02:14 CET 2020]; root of context hierarchy
+2020-02-03 11:02:14,878 INFO o.s.b.c.e.t.TomcatEmbeddedServletContainer [restartedMain] Tomcat initialized with port(s): 82 (http)
+2020-02-03 11:02:15,019 INFO o.s.w.c.ContextLoader [localhost-startStop-1] Root WebApplicationContext: initialization completed in 827 ms
+2020-02-03 11:02:15,050 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Mapping servlet: 'dispatcherServlet' to [/]
+2020-02-03 11:02:15,050 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Mapping servlet: 'webServlet' to [/h2-console/*]
+2020-02-03 11:02:15,050 INFO o.s.b.w.s.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-02-03 11:02:15,066 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Building JPA container EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:02:15,317 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:02:15,567 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/result],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView fr.tse.quiz.controller.QuizController.getResult(java.lang.Long,java.lang.Long)
+2020-02-03 11:02:15,567 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/index || /]}" onto public org.springframework.web.servlet.ModelAndView fr.tse.quiz.controller.QuizController.accueil()
+2020-02-03 11:02:15,567 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-02-03 11:02:15,567 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-03 11:02:15,567 INFO o.s.w.s.h.SimpleUrlHandlerMapping [restartedMain] Mapped URL path [/style/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-03 11:02:15,598 INFO o.s.w.s.m.m.a.RequestMappingHandlerAdapter [restartedMain] Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@50ff2342: startup date [Mon Feb 03 11:02:14 CET 2020]; root of context hierarchy
+2020-02-03 11:02:15,707 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-02-03 11:02:15,707 INFO o.s.j.e.a.AnnotationMBeanExporter [restartedMain] Registering beans for JMX exposure on startup
+2020-02-03 11:02:15,723 INFO o.s.b.c.e.t.TomcatEmbeddedServletContainer [restartedMain] Tomcat started on port(s): 82 (http)
+2020-02-03 11:02:15,723 INFO f.t.q.App [restartedMain] Started App in 1.609 seconds (JVM running for 73.443)
+2020-02-03 11:02:24,393 INFO o.s.w.s.DispatcherServlet [http-nio-82-exec-1] FrameworkServlet 'dispatcherServlet': initialization started
+2020-02-03 11:02:24,401 INFO o.s.w.s.DispatcherServlet [http-nio-82-exec-1] FrameworkServlet 'dispatcherServlet': initialization completed in 8 ms
+2020-02-03 11:03:18,873 INFO o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext [Thread-25] Closing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@50ff2342: startup date [Mon Feb 03 11:02:14 CET 2020]; root of context hierarchy
+2020-02-03 11:03:18,873 INFO o.s.j.e.a.AnnotationMBeanExporter [Thread-25] Unregistering JMX-exposed beans on shutdown
+2020-02-03 11:03:18,888 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [Thread-25] Closing JPA EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:03:20,304 INFO f.t.q.App [restartedMain] Starting App on LAPTOP-JCE7I9HP with PID 13072 (C:\Users\Lia\Desktop\POC.V2-master\quizTelecom\target\classes started by Lia in C:\Users\Lia\Desktop\POC.V2-master\quizTelecom)
+2020-02-03 11:03:20,304 INFO f.t.q.App [restartedMain] No active profile set, falling back to default profiles: default
+2020-02-03 11:03:20,304 INFO o.s.b.c.e.AnnotationConfigEmbeddedWebApplicationContext [restartedMain] Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4fe4203e: startup date [Mon Feb 03 11:03:20 CET 2020]; root of context hierarchy
+2020-02-03 11:03:21,663 INFO o.s.b.c.e.t.TomcatEmbeddedServletContainer [restartedMain] Tomcat initialized with port(s): 82 (http)
+2020-02-03 11:03:21,907 INFO o.s.w.c.ContextLoader [localhost-startStop-1] Root WebApplicationContext: initialization completed in 1603 ms
+2020-02-03 11:03:21,938 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Mapping servlet: 'dispatcherServlet' to [/]
+2020-02-03 11:03:21,938 INFO o.s.b.w.s.ServletRegistrationBean [localhost-startStop-1] Mapping servlet: 'webServlet' to [/h2-console/*]
+2020-02-03 11:03:21,938 INFO o.s.b.w.s.FilterRegistrationBean [localhost-startStop-1] Mapping filter: 'characterEncodingFilter' to: [/*]
+2020-02-03 11:03:21,970 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Building JPA container EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:03:22,251 INFO o.s.o.j.LocalContainerEntityManagerFactoryBean [restartedMain] Initialized JPA EntityManagerFactory for persistence unit 'entityManagerFactory'
+2020-02-03 11:03:22,485 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/result],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView fr.tse.quiz.controller.QuizController.getResult(java.lang.Long,java.lang.Long)
+2020-02-03 11:03:22,485 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/index || /]}" onto public org.springframework.web.servlet.ModelAndView fr.tse.quiz.controller.QuizController.accueil()
+2020-02-03 11:03:22,485 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2020-02-03 11:03:22,485 INFO o.s.w.s.m.m.a.RequestMappingHandlerMapping [restartedMain] Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2020-02-03 11:03:22,485 INFO o.s.w.s.h.SimpleUrlHandlerMapping [restartedMain] Mapped URL path [/style/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2020-02-03 11:03:22,516 INFO o.s.w.s.m.m.a.RequestMappingHandlerAdapter [restartedMain] Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@4fe4203e: startup date [Mon Feb 03 11:03:20 CET 2020]; root of context hierarchy
+2020-02-03 11:03:22,641 INFO o.s.b.d.a.OptionalLiveReloadServer [restartedMain] LiveReload server is running on port 35729
+2020-02-03 11:03:22,641 INFO o.s.j.e.a.AnnotationMBeanExporter [restartedMain] Registering beans for JMX exposure on startup
+2020-02-03 11:03:22,673 INFO o.s.b.c.e.t.TomcatEmbeddedServletContainer [restartedMain] Tomcat started on port(s): 82 (http)
+2020-02-03 11:03:22,673 INFO f.t.q.App [restartedMain] Started App in 2.426 seconds (JVM running for 140.388)
+2020-02-03 11:03:35,576 INFO o.s.w.s.DispatcherServlet [http-nio-82-exec-10] FrameworkServlet 'dispatcherServlet': initialization started
+2020-02-03 11:03:35,576 INFO o.s.w.s.DispatcherServlet [http-nio-82-exec-10] FrameworkServlet 'dispatcherServlet': initialization completed in 0 ms
