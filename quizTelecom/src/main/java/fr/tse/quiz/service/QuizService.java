@@ -4,6 +4,7 @@ import java.util.List;
 
 import fr.tse.quiz.business.Question;
 import fr.tse.quiz.business.Quiz;
+import fr.tse.quiz.business.Reponse;
 import fr.tse.quiz.business.User;
 
 public interface QuizService {
@@ -15,5 +16,7 @@ public interface QuizService {
 	Quiz recupererQuiz(Long id);
 	
 	void supprimerQuiz(Quiz quiz);
+
+	Quiz ajouterQuiz(String intitule);
 
 }

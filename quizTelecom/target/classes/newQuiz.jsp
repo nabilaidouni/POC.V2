@@ -15,10 +15,6 @@
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
 	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
    <!--<script type="text/javascript">$(document).ready(function() {$('#tableau').DataTable({"pageLength": 10} );} );</script>-->
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="ISO-8859-1">
 </head>
 <body>
 	<nav class="navbar navbar-light bg-light">
@@ -28,33 +24,28 @@
 	</nav>
 
 	<div class="text-center"><h1 class="display-1">Création de quiz</h1></div>
-	<div class= "container">
-	</div>
 	
-	<form  action="quizNewPost" method="post" class="container rounded">
+	<form  action="newQuizPost" method="post" class="container rounded">
 	<div class="form-group">
-	    <label for="nom">Intitulé du quiz:</label>
-	    <input type="text" class="form-control" name="NOM" placeholder="Entrez l'intitulé" required>
+	    <label for="intitule">Intitulé du quiz:</label>
+	    <input type="text" class="form-control" name="intitule" placeholder="Entrez l'intitulé" required>
 	  </div>
 	  <div class="form-group">
-	    <label for="identifiant">Question 1:</label>
-	    <input type="text" class="form-control" name="question" placeholder="Entrez votre question" required>
-	  </div>
-	  <c:forEach var="i" begin="0" end="3" step="1">
-	  <div class="form-group">
-	    <label for="identifiant">Reponse ${i+1}:</label>
-	    <input type="text" class="form-control" name="question" placeholder="Entrez votre reponse" required>
-	  </div>
-	  </c:forEach>
-	  <label>Veuillez cocher la bonne réponse</label>
-	  <c:forEach var="i" begin="0" end="3" step="1">
-	  <div class="form-group">
-		  <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1">
-		  <label class="form-check-label" for="exampleRadios1">Reponse ${i+1}</label>
-		</div>
-		</c:forEach>
+		  <div class="input-group-prepend">
+		    <label class="input-group-text" for="nbQuestions">Choisir le nombre de questions</label>
+		  </div>
+		  <select class="custom-select" name="nbQuestions">
+		    <option selected>Choisissez...</option>
+		    <option value="1">Une</option>
+		    <option value="2">Deux</option>
+		    <option value="3">Trois</option>
+		    <option value="4">Quatre</option>
+		    <option value="5">Cinq</option>
+		    <option value="6">Six</option>
+		  </select>
+	</div>
 	  
-	  <button type="submit" class="btn btn-primary">Créer le quiz</button>
+	  <button type="submit" class="btn btn-primary">Suivant</button>
 	</form>
 </body>
 </html>

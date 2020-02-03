@@ -24,7 +24,14 @@ public class QuizServiceImpl implements QuizService {
 		quiz.setIntitule(intitule);
 		quiz.setUser(user);
 		quiz.setQuestions(questions);
-		return quiz;
+		return quizDAO.save(quiz);
+	}
+	
+	@Override
+	public Quiz ajouterQuiz(String intitule) {
+		Quiz quiz = new Quiz();
+		quiz.setIntitule(intitule);
+		return quizDAO.save(quiz);
 	}
 
 	@Override

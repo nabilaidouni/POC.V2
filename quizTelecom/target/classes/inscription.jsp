@@ -17,14 +17,8 @@
 </head>
 	<body>
 		<div class="text-center"><h1 class="display-1">Inscription</h1></div>
-		<div class= "container">
-		</div>
 		
 		<form  action="inscriptionPost" method="post" class="container rounded">
-		<div class="form-group">
-		    <label for="nom">Nom:</label>
-		    <input type="text" class="form-control" name="NOM" placeholder="Entrez votre nom" required>
-		  </div>
 		  <div class="form-group">
 		    <label for="identifiant">Pseudo:</label>
 		    <input type="text" class="form-control" name="IDENTIFIANT" placeholder="Entrez votre identifiant" required>

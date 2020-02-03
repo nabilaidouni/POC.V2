@@ -14,6 +14,8 @@ public interface UserService {
 
 	User recupererUser(Long id);
 	
+	User recupererUser(String id);
+	
 	void supprimerUser(User user);
 
 }

@@ -29,9 +29,9 @@ public class UserServiceImpl implements UserService{
 		user.setMotDePasse(motDePasse);
 		user.setIdentifiant(identifiant);
 		user.setAdmin(admin);
-		user.setScoreAtQuiz(scoreAtQuiz);
+		//user.setScoreAtQuiz(scoreAtQuiz);
 		user.setQuizs(quizs);
-		return user;
+		return userDAO.save(user);
 	}
 
 	@Override
@@ -46,10 +46,20 @@ public class UserServiceImpl implements UserService{
 		return userDAO.findOne(id);
 	}
 	
+	public User recupererClient(String identifiant) {
+		return userDAO.findClientByIdentifiant(identifiant);
+	}
+	
 	@Override
 	public void supprimerUser(User user) {
 		
 		userDAO.delete(user);
+	}
+
+	@Override
+	public User recupererUser(String id) {
+		// TODO Auto-generated method stub
+		return userDAO.findClientByIdentifiant(id);
 	}
 
 }

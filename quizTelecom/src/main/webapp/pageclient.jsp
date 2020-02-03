@@ -16,25 +16,22 @@
 </head>
 <body>
 	<nav class="navbar navbar-light bg-light">
-	  <span class="navbar-brand mb-0 h1">Bonjour</span>
+	  <span class="navbar-brand mb-0 h1">Bonjour ${userConnecte.identifiant }</span>
 	  <a class="navbar-brand" href="">Home</a>
 	  <a class="navbar-brand" href="index">Deconnexion</a>
 	</nav>
-	<table class="table">
+	<table class="table text-center">
 	  <tbody>
-		<c:forEach var="i" begin="0" end="1" step="1">
-	    <tr>
-	    <c:forEach var="i" begin="0" end="2" step="1">	
+		<c:forEach items="${Quiz}" var="quiz" varStatus="status">
+	    <tr>	
 	    <td>
 		    <div class="card text-center" style="width: 18rem;">
 			  <div class="card-body">
-			    <h5 class="card-title">titre du quiz</h5>
-			    <p class="card-text">Description du quiz</p>
+			    <h5 class="card-title">${quiz.intitule}</h5>
 			    <a href="#" class="btn btn-primary">Faire ce Quiz</a>
 			  </div>
 		  </div>
 		</td>
-		</c:forEach>
 	    </tr>
 	    </c:forEach>
 	  </tbody>
