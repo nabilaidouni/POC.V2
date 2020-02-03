@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import fr.tse.quiz.business.Question;
+import fr.tse.quiz.business.Reponse;
 import fr.tse.quiz.dao.QuestionDao;
 import fr.tse.quiz.service.QuestionService;
 
@@ -37,6 +38,11 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public void supprimerQuestion(Question question) {
 		questionDAO.delete(question);
+	}
+
+	@Override
+	public List<Reponse> getAllReponses(Question question) {
+		return null;
 	}
 
 }
