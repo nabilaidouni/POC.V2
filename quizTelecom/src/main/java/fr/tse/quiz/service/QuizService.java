@@ -8,7 +8,7 @@ import fr.tse.quiz.business.User;
 
 public interface QuizService {
 	
-	Quiz ajouterQuiz(String intitule, User user, List<Question> questions);
+	Quiz ajouterQuiz(String intitule, User user);
 	
 	List<Quiz> recupererQuizs();
 

@@ -18,12 +18,12 @@ public class QuizServiceImpl implements QuizService {
 	private QuizDao quizDAO;
 	
 	@Override
-	public Quiz ajouterQuiz(String intitule, User user, List<Question> questions) {
+	public Quiz ajouterQuiz(String intitule, User user) {
 		// TODO Auto-generated method stub
 		Quiz quiz = new Quiz();
 		quiz.setIntitule(intitule);
 		quiz.setUser(user);
-		quiz.setQuestions(questions);
+		quizDAO.save(quiz);
 		return quiz;
 	}
 

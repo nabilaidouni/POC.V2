@@ -8,7 +8,7 @@ import fr.tse.quiz.business.Reponse;
 
 public interface QuestionService {
 	
-	Question ajouterQuestion(String intitule, String media, String niveau, String theme, Quiz quiz, List<Reponse> reponses);
+	Question ajouterQuestion(String intitule, String media, String niveau, String theme, Quiz quiz);
 	
 	List<Question> recupererQuestions();
 

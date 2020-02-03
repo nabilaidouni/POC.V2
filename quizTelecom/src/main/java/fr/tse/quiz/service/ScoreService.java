@@ -15,6 +15,8 @@ public interface ScoreService {
 		Score recupererScoreOfUserForQuiz(Long idUser, Long idQuiz);
 		
 		void mettreaJourScore(Long value, User user, Quiz quiz);
+		
+		public void incrementScore(User user, Quiz quiz);
 
 
 

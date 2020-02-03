@@ -18,7 +18,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private QuestionDao questionDAO;
 	
 	@Override
-	public Question ajouterQuestion(String intitule, String media, String niveau, String theme, Quiz quiz, List<Reponse> reponses) {
+	public Question ajouterQuestion(String intitule, String media, String niveau, String theme, Quiz quiz) {
 		// TODO Auto-generated method stub
 		Question question = new Question();
 		question.setIntitule(intitule);
@@ -26,7 +26,7 @@ public class QuestionServiceImpl implements QuestionService {
 		question.setNiveau(niveau);
 		question.setTheme(theme);
 		question.setQuiz(quiz);
-		question.setReponses(reponses);
+		questionDAO.save(question);
 		return question;
 	}
 

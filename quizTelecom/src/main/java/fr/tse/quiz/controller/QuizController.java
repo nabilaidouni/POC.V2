@@ -1,5 +1,6 @@
 package fr.tse.quiz.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import java.util.List;
@@ -61,18 +62,109 @@ public class QuizController {
 		//mav.addObject("score", scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
 		return mav;
 	  }
+	 
 	@PostConstruct
 	public void init() {
 		System.out.println("Dans init()");
 		if (userService.recupererUsers().isEmpty()) {
+			System.out.println("ajout user");
 			userService.ajouterUser("123", "lia", false);
 			}
 		if (quizService.recupererQuizs().isEmpty()) {
-			quizService.ajouterQuiz("hey", null, null);
+			System.out.println("ajout quiz");
+			quizService.ajouterQuiz("Mary me", userService.recupererUser(1L));
 			}
 		
+		if(questionService.recupererQuestions().isEmpty()) {
+			System.out.println("ajout question");
+			questionService.ajouterQuestion("What is Carl's favorate food?", null, null, "Mariage", quizService.recupererQuiz(1L));
+			
+		}
+		System.out.println("tout marche");
+
+		reponseService.ajouterReponse("Cake", true, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Brownies", false, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Pasta", false, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Pizza", false, questionService.recupererQuestion(1L));
+		
+	
+		
+		}
+
+		
+	
+	
+//	@GetMapping ("questionsJeu/{idQuiz}/{nQuestion}")
+//	public ModelAndView playQuiz(
+//			@RequestParam(name = "idQuiz") long idQuiz,
+//			@RequestParam(name = "nQuestion") int nQuestion) {
+//		ModelAndView mav = new ModelAndView();		
+//		mav.addObject("quizName", quizService.recupererQuizs().get(0).getIntitule());
+//		mav.addObject("question", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getIntitule());
+//		mav.setViewName("questionsJeu");
+//		mav.addObject("nmQuestion", nQuestion);
+//
+//		
+//		return mav;
+//	}
+	
+	@GetMapping ("questionsJeu")
+	public ModelAndView playQuiz(@RequestParam(name = "idQuiz", defaultValue = "0") Long idQuiz,
+			@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion) {
+		ModelAndView mav = new ModelAndView();	
+		mav.setViewName("questionsJeu");
+
+		mav.addObject("quiz", quizService.recupererQuiz(1L));
+		System.out.println(quizService.recupererQuizs());
+		mav.addObject("question", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion));
+		mav.addObject("reponses", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getReponses());
+		mav.addObject("nQuestion", nQuestion);
+		
+		return mav;
+	}
+	
+	@PostMapping ("questionSuivante")
+	public ModelAndView nextQuestion(
+			@RequestParam(name = "reponse0", required = false) Long reponse0,
+			@RequestParam(name = "reponse1", required = false) Long reponse1,
+			@RequestParam(name = "reponse2", required = false) Long reponse2,
+			@RequestParam(name = "reponse3", required = false) Long reponse3,
+			@RequestParam(name = "idQuestion") Long idQuestion,
+			@RequestParam(name = "nQuestion") int nQuestion,
+			@RequestParam(name = "idQuiz") Long idQuiz
+			) {
+		List<Long> reponses = new ArrayList<Long>();
+		if (reponse0 != null) {
+			reponses.add(reponse0);
+		}
+		if (reponse1 != null) {
+			reponses.add(reponse1);
+		}
+		if (reponse2 != null) {
+			reponses.add(reponse2);
+		}
+		if (reponse3 != null) {
+			reponses.add(reponse3);
+		}
+		List<Long> vraiReponses = new ArrayList<Long>();
+		questionService.recupererQuestion(idQuestion).getReponses().forEach((resp)->{
+			if (resp.getIsCorrect()) {
+				vraiReponses.add(resp.getId());
+			}
+		});
+		if (reponses.equals(vraiReponses)) {
+			// TODO incrementer le score 
 		}
 		
+		String redir = "redirect:/questionsJeu?idQuiz=";
+		redir = redir.concat(Long.toString(idQuiz));
+		redir = redir.concat("&nQuestion=");
+		redir = redir.concat(Integer.toString(nQuestion));
+
+		return new ModelAndView(redir) ;
+	}
+	
+	
 	
 
 	public void initBinder() {
