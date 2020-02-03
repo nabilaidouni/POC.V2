@@ -20,7 +20,7 @@ public class Question {
 	
 	private String media;
 	
-	private String niveau;
+	
 	
 	private String theme;
 	
@@ -29,6 +29,9 @@ public class Question {
 	
 	@OneToMany(mappedBy = "question")
 	private List<Reponse> reponses;
+	
+	@ManyToOne
+	private Niveau niveau;
 	
 	public Question() {
 		
@@ -58,11 +61,11 @@ public class Question {
 		this.media = media;
 	}
 
-	public String getNiveau() {
+	public Niveau getNiveau() {
 		return niveau;
 	}
 
-	public void setNiveau(String niveau) {
+	public void setNiveau(Niveau niveau) {
 		this.niveau = niveau;
 	}
 

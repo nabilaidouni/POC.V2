@@ -21,7 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 
-
+import fr.tse.quiz.service.NiveauService;
 import fr.tse.quiz.service.QuestionService;
 import fr.tse.quiz.service.QuizService;
 import fr.tse.quiz.service.ReponseService;
@@ -38,13 +38,15 @@ public class QuizController {
 	private ReponseService reponseService;
 	private UserService userService;
 	private ScoreService scoreService;
+	private NiveauService niveauService;
 	
-	public QuizController(QuizService quizService, QuestionService questionService, ReponseService reponseService, UserService userService) {
+	public QuizController(QuizService quizService, QuestionService questionService, ReponseService reponseService, UserService userService,NiveauService niveauService) {
 		super();
 		this.quizService = quizService;
 		this.questionService = questionService;
 		this.reponseService = reponseService;
 		this.userService = userService;
+		this.niveauService = niveauService;
 	}
 
 	@RequestMapping(value = { "index", "/" })
@@ -53,23 +55,38 @@ public class QuizController {
 		return mav;
 	}
 	 @GetMapping ("result")
-	  public ModelAndView getResult( @RequestParam("IDU") Long idUser ) {
+	  public ModelAndView getResult( @RequestParam("IDU") Long idUser,  @RequestParam("IDQ") Long idQuiz  ) {
 	    ModelAndView mav = new ModelAndView();
 		mav.setViewName("result");
 		mav.addObject("user", userService.recupererUser(idUser));
-		//mav.addObject("quiz", quizService.recupererQuiz(idQuiz));
+		mav.addObject("quiz", quizService.recupererQuiz(idQuiz));
 		//mav.addObject("score", scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
 		return mav;
 	  }
 	@PostConstruct
 	public void init() {
 		System.out.println("Dans init()");
+		if(niveauService.recupererNiveaux().isEmpty()) {
+			niveauService.ajouterNiveau("Débutant");
+			niveauService.ajouterNiveau("Intermédiaire");
+			niveauService.ajouterNiveau("Expert");
+		}
+		
 		if (userService.recupererUsers().isEmpty()) {
 			userService.ajouterUser("123", "lia", false);
 			}
 		if (quizService.recupererQuizs().isEmpty()) {
-			quizService.ajouterQuiz("hey", null, null);
+			quizService.ajouterQuiz("Mary me", userService.recupererUser(1L));
 			}
+		
+		if(questionService.recupererQuestions().isEmpty()) {
+			questionService.ajouterQuestion("What is Carl's favorate food?", null, niveauService.recupererNiveau(1L), "Mariage", quizService.recupererQuiz(1L));
+			
+		}
+		reponseService.ajouterReponse("Cake", true, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Brownies", false, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Pasta", false, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Pizza", false, questionService.recupererQuestion(1L));
 		
 		}
 		

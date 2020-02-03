@@ -57,6 +57,12 @@ public class ScoreServiceImpl implements ScoreService {
 		
 		
 	}
+	public void incrementScore(User user, Quiz quiz) {
+		Score score = scoreDao.findByUserAndQuiz(user, quiz);
+		Long old_value = score.getValue();
+		score.setValue(old_value++);
+		scoreDao.save(score);
+	}
 
 }
 
