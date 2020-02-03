@@ -20,7 +20,8 @@ public class Question {
 	
 	private String media;
 	
-	private String niveau;
+	@ManyToOne
+	private Niveau niveau;
 	
 	private String theme;
 	
@@ -58,11 +59,11 @@ public class Question {
 		this.media = media;
 	}
 
-	public String getNiveau() {
+	public Niveau getNiveau() {
 		return niveau;
 	}
 
-	public void setNiveau(String niveau) {
+	public void setNiveau(Niveau niveau) {
 		this.niveau = niveau;
 	}
 

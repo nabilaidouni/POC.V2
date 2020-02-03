@@ -24,9 +24,11 @@ import org.springframework.web.servlet.view.RedirectView;
 import fr.tse.quiz.business.Question;
 import fr.tse.quiz.business.Quiz;
 import fr.tse.quiz.business.Reponse;
+import fr.tse.quiz.service.NiveauService;
 import fr.tse.quiz.service.QuestionService;
 import fr.tse.quiz.service.QuizService;
 import fr.tse.quiz.service.ReponseService;
+import fr.tse.quiz.service.ScoreService;
 import fr.tse.quiz.service.UserService;
 
 
@@ -38,13 +40,17 @@ public class QuizController {
 	private QuestionService questionService;
 	private ReponseService reponseService;
 	private UserService userService;
+	private NiveauService niveauService;
+	private ScoreService scoreService;
 	
-	public QuizController(QuizService quizService, QuestionService questionService, ReponseService reponseService, UserService userService) {
+	public QuizController(QuizService quizService, QuestionService questionService, ReponseService reponseService, UserService userService,ScoreService scoreService,NiveauService niveauService) {
 		super();
 		this.quizService = quizService;
 		this.questionService = questionService;
 		this.reponseService = reponseService;
 		this.userService = userService;
+		this.scoreService = scoreService;
+		this.niveauService = niveauService;
 	}
 
 	@RequestMapping(value = { "index", "/" })
@@ -55,7 +61,7 @@ public class QuizController {
 	}
 	
 	@GetMapping("pageclient")
-	public ModelAndView pageClientGet(@RequestParam("IDENTIFIANT_CLIENT") String identifiant) {
+	public ModelAndView pageClientGet(@RequestParam("IDU") String identifiant) {
 		if(!identifiant.isEmpty() && userService.recupererUser(identifiant)!=null ) {
 			ModelAndView mav = new ModelAndView("pageclient");
 			mav.addObject("userConnecte",userService.recupererUser(identifiant));
@@ -139,7 +145,7 @@ public class QuizController {
 					return new RedirectView("pageadmin");
 				}
 				else {
-					return new RedirectView("pageclient?IDENTIFIANT_CLIENT="+identifiant);
+					return new RedirectView("pageclient?IDU="+identifiant);
 				}
 			}
 			else {
@@ -178,12 +184,39 @@ public class QuizController {
 		}
 	}
 	
+	@GetMapping ("result")
+	  public ModelAndView getResult( @RequestParam("IDU") Long idUser,  @RequestParam("IDQ") Long idQuiz  ) {
+	    ModelAndView mav = new ModelAndView();
+		mav.setViewName("result");
+		mav.addObject("user", userService.recupererUser(idUser));
+		mav.addObject("quiz", quizService.recupererQuiz(idQuiz));
+		//mav.addObject("score", scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
+		return mav;
+	  }
+	
 	@PostConstruct
 	public void init() {
 		System.out.println("Dans init()");
 		if(userService.recupererUsers().isEmpty()) {
 			userService.ajouterUser("testadmin", "testadmin", true, null, null);
 			userService.ajouterUser("testclient", "testclient", false, null, null);
+		}
+		if(niveauService.recupererNiveaux().isEmpty()) {
+			niveauService.ajouterNiveau("Débutant");
+			niveauService.ajouterNiveau("Intermédiaire");
+			niveauService.ajouterNiveau("Expert");
+		}
+		if (quizService.recupererQuizs().isEmpty()) {
+			quizService.ajouterQuiz("Mary me", userService.recupererUser(2L),null);
+			}
+		if(questionService.recupererQuestions().isEmpty()) {
+			questionService.ajouterQuestion("What is Carl's favorate food?", null, niveauService.recupererNiveau(1L), "Mariage", quizService.recupererQuiz(1L));
+		}
+		if(reponseService.recupererReponses().isEmpty()) {
+		reponseService.ajouterReponse("Cake", true, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Brownies", false, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Pasta", false, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Pizza", false, questionService.recupererQuestion(1L));
 		}
 	}
 }

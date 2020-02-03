@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import fr.tse.quiz.business.Niveau;
 import fr.tse.quiz.business.Question;
 import fr.tse.quiz.business.Quiz;
 import fr.tse.quiz.business.Reponse;
@@ -18,7 +19,7 @@ public class QuestionServiceImpl implements QuestionService {
 	private QuestionDao questionDAO;
 	
 	@Override
-	public Question ajouterQuestion(String intitule, String media, String niveau, String theme, Quiz quiz) {
+	public Question ajouterQuestion(String intitule, String media, Niveau niveau, String theme, Quiz quiz) {
 		// TODO Auto-generated method stub
 		Question question = new Question();
 		question.setIntitule(intitule);
