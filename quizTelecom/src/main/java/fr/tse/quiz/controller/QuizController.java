@@ -103,21 +103,22 @@ public class QuizController {
 			@RequestParam("reponse2Check") String reponse2Check,
 			@RequestParam("reponse3Check") String reponse3Check,
 			@RequestParam("reponse4Check") String reponse4Check) {
-		if(nbQuestions>=0) {
-			System.out.println(reponse1Check);
-			System.out.println(reponse2Check);
-			System.out.println(reponse3Check);
-			System.out.println(reponse4Check);
-			List <Reponse> reponses= new ArrayList();
-			Question q = questionService.ajouterQuestion(intitule, null, null, null, quizService.recupererQuiz(idQuiz));
-			
-			reponses.add(reponseService.ajouterReponse(reponse1, (reponse1Check=="1") ? true:false, q));
-			reponses.add(reponseService.ajouterReponse(reponse2, (reponse2Check=="1") ? true:false, q));
-			reponses.add(reponseService.ajouterReponse(reponse3, (reponse3Check=="1") ? true:false, q));
-			reponses.add(reponseService.ajouterReponse(reponse4, (reponse4Check=="1") ? true:false, q));
-			
-			questionService.ajouterReponses(reponses, q);
-			
+		
+		System.out.println(reponse1Check);
+		System.out.println(reponse2Check);
+		System.out.println(reponse3Check);
+		System.out.println(reponse4Check);
+		List <Reponse> reponses= new ArrayList();
+		Question q = questionService.ajouterQuestion(intitule, null, null, null, quizService.recupererQuiz(idQuiz));
+		
+		reponses.add(reponseService.ajouterReponse(reponse1, (reponse1Check=="1") ? true:false, q));
+		reponses.add(reponseService.ajouterReponse(reponse2, (reponse2Check=="1") ? true:false, q));
+		reponses.add(reponseService.ajouterReponse(reponse3, (reponse3Check=="1") ? true:false, q));
+		reponses.add(reponseService.ajouterReponse(reponse4, (reponse4Check=="1") ? true:false, q));	
+		questionService.ajouterReponses(reponses, q);
+		
+		if(nbQuestions>0) {
+	
 			return new ModelAndView("redirect:/newQuestions?nbQuestions="+nbQuestions+"&idQuiz="+idQuiz);
 		}else {
 			return new ModelAndView("redirect:/pageadmin");
