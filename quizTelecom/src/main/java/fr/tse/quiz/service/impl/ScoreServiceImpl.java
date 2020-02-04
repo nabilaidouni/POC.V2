@@ -26,9 +26,13 @@ public class ScoreServiceImpl implements ScoreService {
 	
 
 	@Override
-	public Score ajouterScore(Long value, User user, Quiz quiz) {
+	public Score ajouterScore(int value, Long iduser, Long idquiz) {
 		// TODO Auto-generated method stub
-		Score score = new Score(value,quiz,user);
+		User user = userDao.findOne(0l);
+		Quiz quiz = quizDao.findOne(idquiz);
+		System.out.println(user.getIdentifiant());
+		System.out.println(quiz.getIntitule());
+		Score score = new Score(value,quiz ,user );
 		scoreDao.save(score);
 		return score;
 	}
@@ -49,7 +53,7 @@ public class ScoreServiceImpl implements ScoreService {
 		}
 	
 	@Override
-	public void mettreaJourScore(Long value, User user, Quiz quiz) {
+	public void mettreaJourScore(int value, User user, Quiz quiz) {
 		// TODO Auto-generated method stub
 		Score score = scoreDao.findByUserAndQuiz(user, quiz);
 		score.setValue(value);
@@ -60,7 +64,7 @@ public class ScoreServiceImpl implements ScoreService {
 	
 	public void incrementScore(User user, Quiz quiz) {
 		Score score = scoreDao.findByUserAndQuiz(user, quiz);
-		Long old_value = score.getValue();
+		int old_value = score.getValue();
 		score.setValue(old_value++);
 		scoreDao.save(score);
 	}

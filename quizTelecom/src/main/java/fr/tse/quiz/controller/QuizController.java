@@ -73,6 +73,7 @@ public class QuizController {
 		if (quizService.recupererQuizs().isEmpty()) {
 			System.out.println("ajout quiz");
 			quizService.ajouterQuiz("Mary me", userService.recupererUser(1L));
+			
 			}
 		
 		if(questionService.recupererQuestions().isEmpty()) {
@@ -109,7 +110,7 @@ public class QuizController {
 //	}
 	
 	@GetMapping ("questionsJeu")
-	public ModelAndView playQuiz(@RequestParam(name = "idQuiz", defaultValue = "0") Long idQuiz,
+	public ModelAndView playQuiz(@RequestParam(name = "idQuiz", defaultValue = "1") Long idQuiz,
 			@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion) {
 		ModelAndView mav = new ModelAndView();	
 		mav.setViewName("questionsJeu");
@@ -119,6 +120,9 @@ public class QuizController {
 		mav.addObject("question", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion));
 		mav.addObject("reponses", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getReponses());
 		mav.addObject("nQuestion", nQuestion);
+		if (nQuestion==0) {
+			scoreService.ajouterScore(0, 1L, idQuiz);
+		}
 		
 		return mav;
 	}
@@ -153,9 +157,10 @@ public class QuizController {
 			}
 		});
 		if (reponses.equals(vraiReponses)) {
+			scoreService.incrementScore(userService.recupererUser(1L), quizService.recupererQuiz(idQuiz));
 			// TODO incrementer le score 
 		}
-		
+		System.out.println(scoreService.recupererScoreOfUserForQuiz(1L, idQuiz));
 		String redir = "redirect:/questionsJeu?idQuiz=";
 		redir = redir.concat(Long.toString(idQuiz));
 		redir = redir.concat("&nQuestion=");

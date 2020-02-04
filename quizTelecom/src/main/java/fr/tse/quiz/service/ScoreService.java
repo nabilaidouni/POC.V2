@@ -8,13 +8,13 @@ import fr.tse.quiz.business.Quiz;
 public interface ScoreService {
 	
 		
-		Score ajouterScore(Long value, User user, Quiz quiz);
+		Score ajouterScore(int value, Long iduser, Long idquiz);
 		
 		Score recupererScoresOfUser(Long id);
 		
 		Score recupererScoreOfUserForQuiz(Long idUser, Long idQuiz);
 		
-		void mettreaJourScore(Long value, User user, Quiz quiz);
+		void mettreaJourScore(int value, User user, Quiz quiz);
 		
 		public void incrementScore(User user, Quiz quiz);
 

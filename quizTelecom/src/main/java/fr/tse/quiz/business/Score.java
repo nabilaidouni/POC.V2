@@ -15,7 +15,7 @@ public class Score {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
-	private Long value;
+	private int value;
 	
 
 	@ManyToOne
@@ -23,8 +23,8 @@ public class Score {
 	@ManyToOne
 	private User user;
 	
-	public Score(Long value, Quiz quiz, User user) {
-		this.value = value;
+	public Score(int value2, Quiz quiz, User user) {
+		this.value = value2;
 		this.quiz = quiz;
 		this.user = user;
 		
@@ -40,12 +40,12 @@ public class Score {
 	}
 
 
-	public Long getValue() {
+	public int getValue() {
 		return value;
 	}
 
 
-	public void setValue(Long value) {
+	public void setValue(int value) {
 		this.value = value;
 	}
 
