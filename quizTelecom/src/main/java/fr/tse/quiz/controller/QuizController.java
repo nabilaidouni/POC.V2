@@ -110,11 +110,13 @@ public class QuizController {
 		System.out.println(reponse4Check);
 		List <Reponse> reponses= new ArrayList();
 		Question q = questionService.ajouterQuestion(intitule, null, null, null, quizService.recupererQuiz(idQuiz));
+		System.out.println(reponse1Check.contentEquals("1"));
+		System.out.println(reponse2Check);
 		
-		reponses.add(reponseService.ajouterReponse(reponse1, (reponse1Check=="1") ? true:false, q));
-		reponses.add(reponseService.ajouterReponse(reponse2, (reponse2Check=="1") ? true:false, q));
-		reponses.add(reponseService.ajouterReponse(reponse3, (reponse3Check=="1") ? true:false, q));
-		reponses.add(reponseService.ajouterReponse(reponse4, (reponse4Check=="1") ? true:false, q));	
+		reponses.add(reponseService.ajouterReponse(reponse1, reponse1Check.contentEquals("1"), q));
+		reponses.add(reponseService.ajouterReponse(reponse2, reponse2Check.contentEquals("1"), q));
+		reponses.add(reponseService.ajouterReponse(reponse3, reponse3Check.contentEquals("1"), q));
+		reponses.add(reponseService.ajouterReponse(reponse4, reponse4Check.contentEquals("1"), q));	
 		questionService.ajouterReponses(reponses, q);
 		
 		if(nbQuestions>0) {
@@ -267,7 +269,9 @@ public class QuizController {
 			scoreService.incrementScore(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
 			// TODO incrementer le score 
 		}
-
+		
+		System.out.println(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz).getValue());
+		
 		nQuestion++;
 		String redir = "redirect:/questionsJeu?IDQ=";
 		redir = redir.concat(Long.toString(idQuiz));
