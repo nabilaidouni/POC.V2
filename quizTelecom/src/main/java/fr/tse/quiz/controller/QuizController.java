@@ -194,6 +194,66 @@ public class QuizController {
 		return mav;
 	  }
 	
+	@GetMapping ("questionsJeu")
+	public ModelAndView playQuiz(@RequestParam(name = "idQuiz", defaultValue = "1") Long idQuiz,
+			@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion) {
+		ModelAndView mav = new ModelAndView();	
+		mav.setViewName("questionsJeu");
+
+		mav.addObject("quiz", quizService.recupererQuiz(1L));
+		System.out.println(quizService.recupererQuizs());
+		mav.addObject("question", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion));
+		mav.addObject("reponses", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getReponses());
+		mav.addObject("nQuestion", nQuestion);
+		if (nQuestion==0) {
+			// scoreService.ajouterScore(0, 1L, idQuiz);
+		}
+		
+		return mav;
+	}
+	
+	@PostMapping ("questionSuivante")
+	public ModelAndView nextQuestion(
+			@RequestParam(name = "reponse0", required = false) Long reponse0,
+			@RequestParam(name = "reponse1", required = false) Long reponse1,
+			@RequestParam(name = "reponse2", required = false) Long reponse2,
+			@RequestParam(name = "reponse3", required = false) Long reponse3,
+			@RequestParam(name = "idQuestion") Long idQuestion,
+			@RequestParam(name = "nQuestion") int nQuestion,
+			@RequestParam(name = "idQuiz") Long idQuiz
+			) {
+		List<Long> reponses = new ArrayList<Long>();
+		if (reponse0 != null) {
+			reponses.add(reponse0);
+		}
+		if (reponse1 != null) {
+			reponses.add(reponse1);
+		}
+		if (reponse2 != null) {
+			reponses.add(reponse2);
+		}
+		if (reponse3 != null) {
+			reponses.add(reponse3);
+		}
+		List<Long> vraiReponses = new ArrayList<Long>();
+		questionService.recupererQuestion(idQuestion).getReponses().forEach((resp)->{
+			if (resp.getIsCorrect()) {
+				vraiReponses.add(resp.getId());
+			}
+		});
+		if (reponses.equals(vraiReponses)) {
+			// scoreService.incrementScore(userService.recupererUser(1L), quizService.recupererQuiz(idQuiz));
+			// TODO incrementer le score 
+		}
+		System.out.println(scoreService.recupererScoreOfUserForQuiz(1L, idQuiz));
+		String redir = "redirect:/questionsJeu?idQuiz=";
+		redir = redir.concat(Long.toString(idQuiz));
+		redir = redir.concat("&nQuestion=");
+		redir = redir.concat(Integer.toString(nQuestion));
+
+		return new ModelAndView(redir) ;
+	}
+	
 	@PostConstruct
 	public void init() {
 		System.out.println("Dans init()");
