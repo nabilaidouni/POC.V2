@@ -195,16 +195,18 @@ public class QuizController {
 	  }
 	
 	@GetMapping ("questionsJeu")
-	public ModelAndView playQuiz(@RequestParam(name = "idQuiz", defaultValue = "1") Long idQuiz,
-			@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion) {
+	public ModelAndView playQuiz(@RequestParam(name = "IDQ", defaultValue = "1") Long idQuiz,
+			@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion,
+			@RequestParam(name = "IDU") Long idUser) {
 		ModelAndView mav = new ModelAndView();	
 		mav.setViewName("questionsJeu");
 
-		mav.addObject("quiz", quizService.recupererQuiz(1L));
+		mav.addObject("quiz", quizService.recupererQuiz(idQuiz));
 		System.out.println(quizService.recupererQuizs());
 		mav.addObject("question", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion));
 		mav.addObject("reponses", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getReponses());
 		mav.addObject("nQuestion", nQuestion);
+		mav.addObject("user", userService.recupererUser(idUser));
 		if (nQuestion==0) {
 			// scoreService.ajouterScore(0, 1L, idQuiz);
 		}
@@ -220,7 +222,8 @@ public class QuizController {
 			@RequestParam(name = "reponse3", required = false) Long reponse3,
 			@RequestParam(name = "idQuestion") Long idQuestion,
 			@RequestParam(name = "nQuestion") int nQuestion,
-			@RequestParam(name = "idQuiz") Long idQuiz
+			@RequestParam(name = "IDQ") Long idQuiz,
+			@RequestParam(name = "IDU") Long idUser
 			) {
 		List<Long> reponses = new ArrayList<Long>();
 		if (reponse0 != null) {
@@ -246,12 +249,30 @@ public class QuizController {
 			// TODO incrementer le score 
 		}
 		System.out.println(scoreService.recupererScoreOfUserForQuiz(1L, idQuiz));
-		String redir = "redirect:/questionsJeu?idQuiz=";
-		redir = redir.concat(Long.toString(idQuiz));
-		redir = redir.concat("&nQuestion=");
-		redir = redir.concat(Integer.toString(nQuestion));
+		int nmaxQuestions = quizService.recupererQuiz(idQuiz).getQuestions().size();
+		System.out.println(nmaxQuestions);
+		
+		nQuestion++;
+		
+		if (nQuestion>=nmaxQuestions) {
+			System.out.println("tu veux les resultats mon petit");
+			String redir = "redirect:/result?IDQ=";
+			redir = redir.concat(Long.toString(idQuiz));
+			redir = redir.concat("&IDU=");
+			redir = redir.concat(Long.toString(idUser));
+			return new ModelAndView(redir);
+		}
+		else {
+			String redir = "redirect:/questionsJeu?IDQ=";
+			redir = redir.concat(Long.toString(idQuiz));
+			redir = redir.concat("&nQuestion=");
+			redir = redir.concat(Integer.toString(nQuestion));
+			redir = redir.concat("&IDU=");
+			redir = redir.concat(Long.toString(idUser));
 
-		return new ModelAndView(redir) ;
+			return new ModelAndView(redir) ;
+		}
+
 	}
 	
 	@PostConstruct

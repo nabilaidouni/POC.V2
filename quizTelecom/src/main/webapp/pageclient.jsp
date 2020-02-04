@@ -28,7 +28,7 @@
 		    <div class="card text-center" style="width: 18rem;">
 			  <div class="card-body">
 			    <h5 class="card-title">${quiz.intitule}</h5>
-			    <a href="/questionsJeu?idQuiz=${quiz.id }" class="btn btn-primary">Faire ce Quiz</a>
+			    <a href="/questionsJeu?idQuiz=${quiz.id }&IDU=${userConnecte.id}" class="btn btn-primary">Faire ce Quiz</a>
 			  </div>
 		  </div>
 		</td>

@@ -28,7 +28,9 @@
 			    <form action = "questionSuivante" method = "post">
 			    <input type="hidden" name = "idQuestion" value="${question.id }"/>
 			    <input type="hidden" name = "nQuestion" value="${nQuestion }"/>
-			    <input type="hidden" name = "idQuiz" value="${quiz.id }"/>
+			    <input type="hidden" name = "IDQ" value="${quiz.id }"/>
+			    <input type="hidden" name = "IDU" value="${user.id }"/>
+			    
 			    
 			    <table>
 			    <tbody>
