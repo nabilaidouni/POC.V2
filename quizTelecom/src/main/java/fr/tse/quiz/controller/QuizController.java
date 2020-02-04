@@ -160,6 +160,7 @@ public class QuizController {
 	@GetMapping("pageadmin")
 	public ModelAndView pageAdminGet() {
 		ModelAndView mav = new ModelAndView("pageadmin");
+		mav.addObject("quizs", quizService.recupererQuizs());
 		return mav;
 	}
 	
@@ -195,26 +196,25 @@ public class QuizController {
 	  }
 	
 	@GetMapping ("questionsJeu")
-	public ModelAndView playQuiz(@RequestParam(name = "IDQ", defaultValue = "1") Long idQuiz,
-			@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion,
+	public ModelAndView playQuiz(@RequestParam("IDQ") Long idQuiz,
+			/*@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion,*/
 			@RequestParam(name = "IDU") Long idUser) {
+		System.out.println(idQuiz);
 		ModelAndView mav = new ModelAndView();	
 		mav.setViewName("questionsJeu");
 
 		mav.addObject("quiz", quizService.recupererQuiz(idQuiz));
-		System.out.println(quizService.recupererQuizs());
-		mav.addObject("question", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion));
-		mav.addObject("reponses", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getReponses());
-		mav.addObject("nQuestion", nQuestion);
+		//mav.addObject("question", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion));
+		//mav.addObject("reponses", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getReponses());
+		//mav.addObject("nQuestion", nQuestion);
 		mav.addObject("user", userService.recupererUser(idUser));
-		if (nQuestion==0) {
+		
 			if(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz) == null) {
 				scoreService.ajouterScore(0L, userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz));
 			}
 			else {
 				scoreService.mettreaJourScore(0L, userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz));
 			}
-		}
 		
 		return mav;
 	}
@@ -306,7 +306,7 @@ public class QuizController {
 			quizService.ajouterQuiz("Mary me", userService.recupererUser(2L),null);
 			}
 		if(questionService.recupererQuestions().isEmpty()) {
-			questionService.ajouterQuestion("What is Carl's favorate food?", null, niveauService.recupererNiveau(1L), "Mariage", quizService.recupererQuiz(1L));
+			questionService.ajouterQuestion("What is Carl's favorite food?", null, niveauService.recupererNiveau(1L), "Mariage", quizService.recupererQuiz(1L));
 		}
 		if(reponseService.recupererReponses().isEmpty()) {
 		reponseService.ajouterReponse("Cake", true, questionService.recupererQuestion(1L));

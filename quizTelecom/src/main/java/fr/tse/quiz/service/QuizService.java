@@ -17,6 +17,6 @@ public interface QuizService {
 	
 	void supprimerQuiz(Quiz quiz);
 
-	Quiz ajouterQuiz(String intitule);
+	//Quiz ajouterQuiz(String intitule);
 
 }

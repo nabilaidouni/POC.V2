@@ -27,12 +27,12 @@ public class QuizServiceImpl implements QuizService {
 		return quizDAO.save(quiz);
 	}
 	
-	@Override
+	/*@Override
 	public Quiz ajouterQuiz(String intitule) {
 		Quiz quiz = new Quiz();
 		quiz.setIntitule(intitule);
 		return quizDAO.save(quiz);
-	}
+	}*/
 
 	@Override
 	public void supprimerQuiz(Quiz quiz) {
