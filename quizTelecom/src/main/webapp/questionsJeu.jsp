@@ -46,7 +46,7 @@
 			    <input type="hidden" name = "idQuestion" value="${question.id }"/>
 			    <input type="hidden" name = "nQuestion" value="${nQuestion }"/>
 			    <input type="hidden" name = "IDQ" value="${quiz.id }"/>
-			    <input type="hidden" name = "IDU" value="${user.id }"/>
+			    <input type="hidden" name = "IDU" value="${userConnecte.id }"/>
 			    </div>
 			    
 			    <table>
@@ -57,7 +57,7 @@
 			    			${reponses[i].intitule }
 			    		</td>
 			    		<td>
-			    			<input type="checkbox" value=${reponses[i].id } name="reponse${i }"/>
+			    			<input type="checkbox" value=${reponses[i].intitule } name="reponse${i }"/>
 			    		</td>
 
 			    	</tr>

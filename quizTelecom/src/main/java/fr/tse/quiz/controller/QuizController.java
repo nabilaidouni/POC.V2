@@ -62,6 +62,8 @@ public class QuizController {
 	
 	@GetMapping("pageclient")
 	public ModelAndView pageClientGet(@RequestParam("IDU") String identifiant) {
+		System.out.println("la pagee client");
+		System.out.println(identifiant);
 		if(!identifiant.isEmpty() && userService.recupererUser(identifiant)!=null ) {
 			ModelAndView mav = new ModelAndView("pageclient");
 			mav.addObject("userConnecte",userService.recupererUser(identifiant));
@@ -103,21 +105,24 @@ public class QuizController {
 			@RequestParam("reponse2Check") String reponse2Check,
 			@RequestParam("reponse3Check") String reponse3Check,
 			@RequestParam("reponse4Check") String reponse4Check) {
+		
+		System.out.println(reponse1Check);
+		System.out.println(reponse2Check);
+		System.out.println(reponse3Check);
+		System.out.println(reponse4Check);
+		List <Reponse> reponses= new ArrayList();
+		Question q = questionService.ajouterQuestion(intitule, null, null, null, quizService.recupererQuiz(idQuiz));
+		System.out.println(reponse1Check.contentEquals("1"));
+		System.out.println(reponse2Check);
+		
+		reponses.add(reponseService.ajouterReponse(reponse1, reponse1Check.contentEquals("1"), q));
+		reponses.add(reponseService.ajouterReponse(reponse2, reponse2Check.contentEquals("1"), q));
+		reponses.add(reponseService.ajouterReponse(reponse3, reponse3Check.contentEquals("1"), q));
+		reponses.add(reponseService.ajouterReponse(reponse4, reponse4Check.contentEquals("1"), q));	
+		questionService.ajouterReponses(reponses, q);
+		
 		if(nbQuestions>0) {
-			System.out.println(reponse1Check);
-			System.out.println(reponse2Check);
-			System.out.println(reponse3Check);
-			System.out.println(reponse4Check);
-			List <Reponse> reponses= new ArrayList();
-			Question q = questionService.ajouterQuestion(intitule, null, null, null, quizService.recupererQuiz(idQuiz));
-			
-			reponses.add(reponseService.ajouterReponse(reponse1, (reponse1Check=="1") ? true:false, q));
-			reponses.add(reponseService.ajouterReponse(reponse2, (reponse2Check=="1") ? true:false, q));
-			reponses.add(reponseService.ajouterReponse(reponse3, (reponse3Check=="1") ? true:false, q));
-			reponses.add(reponseService.ajouterReponse(reponse4, (reponse4Check=="1") ? true:false, q));
-			
-			questionService.ajouterReponses(reponses, q);
-			
+	
 			return new ModelAndView("redirect:/newQuestions?nbQuestions="+nbQuestions+"&idQuiz="+idQuiz);
 		}else {
 			return new ModelAndView("redirect:/pageadmin");
@@ -128,7 +133,7 @@ public class QuizController {
 	@PostMapping("newQuizPost")
 	public ModelAndView newQuizPost(@RequestParam("intitule") String intitule,@RequestParam("nbQuestions") Long nbQuestions) {
 		if(intitule != "") {
-			Quiz quiz = quizService.ajouterQuiz(intitule,null,null);
+			Quiz quiz =quizService.ajouterQuiz(intitule,null,null);
 			return new ModelAndView("redirect:/newQuestions?nbQuestions="+nbQuestions+"&idQuiz="+quiz.getId());
 		}
 		else {
@@ -199,7 +204,16 @@ public class QuizController {
 	public ModelAndView playQuiz(@RequestParam("IDQ") Long idQuiz,
 			@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion,
 			@RequestParam(name = "IDU") Long idUser) {
-		System.out.println(idQuiz);
+		
+		int nmaxQuestions = quizService.recupererQuiz(idQuiz).getQuestions().size();
+		if (nQuestion>=nmaxQuestions) {
+			String redir = "redirect:/result?IDQ=";
+			redir = redir.concat(Long.toString(idQuiz));
+			redir = redir.concat("&IDU=");
+			redir = redir.concat(Long.toString(idUser));
+			return new ModelAndView(redir);
+		}
+		
 		ModelAndView mav = new ModelAndView();	
 		mav.setViewName("questionsJeu");
 
@@ -208,14 +222,14 @@ public class QuizController {
 		mav.addObject("reponses", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getReponses());
 		mav.addObject("nQuestion", nQuestion);
 		mav.addObject("userConnecte", userService.recupererUser(idUser));
-		
+		if (nQuestion==0) {
 			if(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz) == null) {
 				scoreService.ajouterScore(0L, userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz));
 			}
 			else {
 				scoreService.mettreaJourScore(0L, userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz));
 			}
-		
+		}
 		return mav;
 	}
 	
@@ -231,10 +245,7 @@ public class QuizController {
 			@RequestParam(name = "IDU") Long idUser
 			) {
 		
-		System.out.println(reponse0);
-		System.out.println(reponse1);
-		System.out.println(reponse2);
-		System.out.println(reponse3);
+
 		List<String> reponses = new ArrayList<String>();
 		if (reponse0 != null) {
 			reponses.add(reponse0);
@@ -248,7 +259,6 @@ public class QuizController {
 		if (reponse3 != null) {
 			reponses.add(reponse3);
 		}
-		System.out.println(reponses.get(0));
 		List<String> vraiReponses = new ArrayList<String>();
 		questionService.recupererQuestion(idQuestion).getReponses().forEach((resp)->{
 			if (resp.getIsCorrect()== true) {
@@ -256,37 +266,24 @@ public class QuizController {
 			}
 		});
 		
-		System.out.println(vraiReponses.get(0));
-		System.out.println(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz).getValue());
 		
 		if (reponses.equals(vraiReponses)) {
-			System.out.println("c'est pas là que ça merde");
-			scoreService.incrementScore(/*userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz)*/scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
-			// scoreService.incrementScore(userService.recupererUser(1L), quizService.recupererQuiz(idQuiz));
+			scoreService.incrementScore(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
 			// TODO incrementer le score 
 		}
+		
 		System.out.println(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz).getValue());
-		int nmaxQuestions = quizService.recupererQuiz(idQuiz).getQuestions().size();
 		
 		nQuestion++;
-		
-		if (nQuestion>=nmaxQuestions) {
-			String redir = "redirect:/result?IDQ=";
-			redir = redir.concat(Long.toString(idQuiz));
-			redir = redir.concat("&IDU=");
-			redir = redir.concat(Long.toString(idUser));
-			return new ModelAndView(redir);
-		}
-		else {
-			String redir = "redirect:/questionsJeu?IDQ=";
-			redir = redir.concat(Long.toString(idQuiz));
-			redir = redir.concat("&nQuestion=");
-			redir = redir.concat(Integer.toString(nQuestion));
-			redir = redir.concat("&IDU=");
-			redir = redir.concat(Long.toString(idUser));
+		String redir = "redirect:/questionsJeu?IDQ=";
+		redir = redir.concat(Long.toString(idQuiz));
+		redir = redir.concat("&nQuestion=");
+		redir = redir.concat(Integer.toString(nQuestion));
+		redir = redir.concat("&IDU=");
+		redir = redir.concat(Long.toString(idUser));
 
-			return new ModelAndView(redir) ;
-		}
+		return new ModelAndView(redir) ;
+	
 
 	}
 	
@@ -307,12 +304,17 @@ public class QuizController {
 			}
 		if(questionService.recupererQuestions().isEmpty()) {
 			questionService.ajouterQuestion("What is Carl's favorite food?", null, niveauService.recupererNiveau(1L), "Mariage", quizService.recupererQuiz(1L));
+			questionService.ajouterQuestion("What is Marc favorite food?", null, niveauService.recupererNiveau(1L), "Mariage", quizService.recupererQuiz(1L));
 		}
 		if(reponseService.recupererReponses().isEmpty()) {
 		reponseService.ajouterReponse("Cake", true, questionService.recupererQuestion(1L));
 		reponseService.ajouterReponse("Brownies", false, questionService.recupererQuestion(1L));
 		reponseService.ajouterReponse("Pasta", false, questionService.recupererQuestion(1L));
 		reponseService.ajouterReponse("Pizza", false, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Cake", true, questionService.recupererQuestion(2L));
+		reponseService.ajouterReponse("Brownies", false, questionService.recupererQuestion(2L));
+		reponseService.ajouterReponse("Pasta", false, questionService.recupererQuestion(2L));
+		reponseService.ajouterReponse("Pizza", false, questionService.recupererQuestion(2L));
 		}
 	}
 }
