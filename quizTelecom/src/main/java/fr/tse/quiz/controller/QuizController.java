@@ -103,7 +103,7 @@ public class QuizController {
 			@RequestParam("reponse2Check") String reponse2Check,
 			@RequestParam("reponse3Check") String reponse3Check,
 			@RequestParam("reponse4Check") String reponse4Check) {
-		if(nbQuestions>0) {
+		if(nbQuestions>=0) {
 			System.out.println(reponse1Check);
 			System.out.println(reponse2Check);
 			System.out.println(reponse3Check);
