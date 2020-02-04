@@ -190,7 +190,7 @@ public class QuizController {
 		mav.setViewName("result");
 		mav.addObject("user", userService.recupererUser(idUser));
 		mav.addObject("quiz", quizService.recupererQuiz(idQuiz));
-		//mav.addObject("score", scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
+		mav.addObject("score", scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
 		return mav;
 	  }
 	
@@ -208,7 +208,12 @@ public class QuizController {
 		mav.addObject("nQuestion", nQuestion);
 		mav.addObject("user", userService.recupererUser(idUser));
 		if (nQuestion==0) {
-			// scoreService.ajouterScore(0, 1L, idQuiz);
+			if(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz) == null) {
+				scoreService.ajouterScore(0L, userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz));
+			}
+			else {
+				scoreService.mettreaJourScore(0L, userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz));
+			}
 		}
 		
 		return mav;
@@ -216,16 +221,21 @@ public class QuizController {
 	
 	@PostMapping ("questionSuivante")
 	public ModelAndView nextQuestion(
-			@RequestParam(name = "reponse0", required = false) Long reponse0,
-			@RequestParam(name = "reponse1", required = false) Long reponse1,
-			@RequestParam(name = "reponse2", required = false) Long reponse2,
-			@RequestParam(name = "reponse3", required = false) Long reponse3,
+			@RequestParam(name = "reponse0", required = false) String reponse0,
+			@RequestParam(name = "reponse1", required = false) String reponse1,
+			@RequestParam(name = "reponse2", required = false) String reponse2,
+			@RequestParam(name = "reponse3", required = false) String reponse3,
 			@RequestParam(name = "idQuestion") Long idQuestion,
 			@RequestParam(name = "nQuestion") int nQuestion,
 			@RequestParam(name = "IDQ") Long idQuiz,
 			@RequestParam(name = "IDU") Long idUser
 			) {
-		List<Long> reponses = new ArrayList<Long>();
+		
+		System.out.println(reponse0);
+		System.out.println(reponse1);
+		System.out.println(reponse2);
+		System.out.println(reponse3);
+		List<String> reponses = new ArrayList<String>();
 		if (reponse0 != null) {
 			reponses.add(reponse0);
 		}
@@ -238,24 +248,29 @@ public class QuizController {
 		if (reponse3 != null) {
 			reponses.add(reponse3);
 		}
-		List<Long> vraiReponses = new ArrayList<Long>();
+		System.out.println(reponses.get(0));
+		List<String> vraiReponses = new ArrayList<String>();
 		questionService.recupererQuestion(idQuestion).getReponses().forEach((resp)->{
-			if (resp.getIsCorrect()) {
-				vraiReponses.add(resp.getId());
+			if (resp.getIsCorrect()== true) {
+				vraiReponses.add(resp.getIntitule());
 			}
 		});
+		
+		System.out.println(vraiReponses.get(0));
+		System.out.println(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz).getValue());
+		
 		if (reponses.equals(vraiReponses)) {
+			System.out.println("c'est pas là que ça merde");
+			scoreService.incrementScore(/*userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz)*/scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
 			// scoreService.incrementScore(userService.recupererUser(1L), quizService.recupererQuiz(idQuiz));
 			// TODO incrementer le score 
 		}
-		System.out.println(scoreService.recupererScoreOfUserForQuiz(1L, idQuiz));
+		System.out.println(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz).getValue());
 		int nmaxQuestions = quizService.recupererQuiz(idQuiz).getQuestions().size();
-		System.out.println(nmaxQuestions);
 		
 		nQuestion++;
 		
 		if (nQuestion>=nmaxQuestions) {
-			System.out.println("tu veux les resultats mon petit");
 			String redir = "redirect:/result?IDQ=";
 			redir = redir.concat(Long.toString(idQuiz));
 			redir = redir.concat("&IDU=");

@@ -23,6 +23,10 @@ public class Score {
 	@ManyToOne
 	private User user;
 	
+	public Score() {
+		
+	}
+	
 	public Score(Long value, Quiz quiz, User user) {
 		this.value = value;
 		this.quiz = quiz;

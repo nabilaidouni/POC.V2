@@ -16,7 +16,7 @@ public interface ScoreService {
 		
 		void mettreaJourScore(Long value, User user, Quiz quiz);
 		
-		void incrementScore(User user, Quiz quiz);
+		void incrementScore(/*User user, Quiz quiz*/Score score);
 
 
 }

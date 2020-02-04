@@ -40,7 +40,7 @@
 			    			${reponses[i].intitule }
 			    		</td>
 			    		<td>
-			    			<input type="checkbox" value=${reponses[i].id } name="reponse${i }"/>
+			    			<input type="checkbox" value=${reponses[i].intitule } name="reponse${i }"/>
 			    		</td>
 
 			    	</tr>
