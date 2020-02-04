@@ -199,6 +199,16 @@ public class QuizController {
 	public ModelAndView playQuiz(@RequestParam("IDQ") Long idQuiz,
 			@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion,
 			@RequestParam(name = "IDU") Long idUser) {
+		
+		int nmaxQuestions = quizService.recupererQuiz(idQuiz).getQuestions().size();
+		if (nQuestion>=nmaxQuestions) {
+			String redir = "redirect:/result?IDQ=";
+			redir = redir.concat(Long.toString(idQuiz));
+			redir = redir.concat("&IDU=");
+			redir = redir.concat(Long.toString(idUser));
+			return new ModelAndView(redir);
+		}
+		
 		ModelAndView mav = new ModelAndView();	
 		mav.setViewName("questionsJeu");
 
@@ -256,29 +266,17 @@ public class QuizController {
 			scoreService.incrementScore(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
 			// TODO incrementer le score 
 		}
-		System.out.println("score actuel : ");
-		System.out.println(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz).getValue());
-		int nmaxQuestions = quizService.recupererQuiz(idQuiz).getQuestions().size();
-		
-		nQuestion++;
-		
-		if (nQuestion>=nmaxQuestions) {
-			String redir = "redirect:/result?IDQ=";
-			redir = redir.concat(Long.toString(idQuiz));
-			redir = redir.concat("&IDU=");
-			redir = redir.concat(Long.toString(idUser));
-			return new ModelAndView(redir);
-		}
-		else {
-			String redir = "redirect:/questionsJeu?IDQ=";
-			redir = redir.concat(Long.toString(idQuiz));
-			redir = redir.concat("&nQuestion=");
-			redir = redir.concat(Integer.toString(nQuestion));
-			redir = redir.concat("&IDU=");
-			redir = redir.concat(Long.toString(idUser));
 
-			return new ModelAndView(redir) ;
-		}
+		nQuestion++;
+		String redir = "redirect:/questionsJeu?IDQ=";
+		redir = redir.concat(Long.toString(idQuiz));
+		redir = redir.concat("&nQuestion=");
+		redir = redir.concat(Integer.toString(nQuestion));
+		redir = redir.concat("&IDU=");
+		redir = redir.concat(Long.toString(idUser));
+
+		return new ModelAndView(redir) ;
+	
 
 	}
 	
