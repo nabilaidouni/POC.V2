@@ -197,25 +197,24 @@ public class QuizController {
 	
 	@GetMapping ("questionsJeu")
 	public ModelAndView playQuiz(@RequestParam("IDQ") Long idQuiz,
-			/*@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion,*/
+			@RequestParam(name = "nQuestion", defaultValue = "0") int nQuestion,
 			@RequestParam(name = "IDU") Long idUser) {
-		System.out.println(idQuiz);
 		ModelAndView mav = new ModelAndView();	
 		mav.setViewName("questionsJeu");
 
 		mav.addObject("quiz", quizService.recupererQuiz(idQuiz));
-		//mav.addObject("question", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion));
-		//mav.addObject("reponses", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getReponses());
-		//mav.addObject("nQuestion", nQuestion);
+		mav.addObject("question", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion));
+		mav.addObject("reponses", quizService.recupererQuiz(idQuiz).getQuestions().get(nQuestion).getReponses());
+		mav.addObject("nQuestion", nQuestion);
 		mav.addObject("user", userService.recupererUser(idUser));
-		
+		if (nQuestion==0) {
 			if(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz) == null) {
 				scoreService.ajouterScore(0L, userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz));
 			}
 			else {
 				scoreService.mettreaJourScore(0L, userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz));
 			}
-		
+		}
 		return mav;
 	}
 	
@@ -231,10 +230,7 @@ public class QuizController {
 			@RequestParam(name = "IDU") Long idUser
 			) {
 		
-		System.out.println(reponse0);
-		System.out.println(reponse1);
-		System.out.println(reponse2);
-		System.out.println(reponse3);
+
 		List<String> reponses = new ArrayList<String>();
 		if (reponse0 != null) {
 			reponses.add(reponse0);
@@ -248,7 +244,6 @@ public class QuizController {
 		if (reponse3 != null) {
 			reponses.add(reponse3);
 		}
-		System.out.println(reponses.get(0));
 		List<String> vraiReponses = new ArrayList<String>();
 		questionService.recupererQuestion(idQuestion).getReponses().forEach((resp)->{
 			if (resp.getIsCorrect()== true) {
@@ -256,15 +251,12 @@ public class QuizController {
 			}
 		});
 		
-		System.out.println(vraiReponses.get(0));
-		System.out.println(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz).getValue());
 		
 		if (reponses.equals(vraiReponses)) {
-			System.out.println("c'est pas là que ça merde");
-			scoreService.incrementScore(/*userService.recupererUser(idUser), quizService.recupererQuiz(idQuiz)*/scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
-			// scoreService.incrementScore(userService.recupererUser(1L), quizService.recupererQuiz(idQuiz));
+			scoreService.incrementScore(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz));
 			// TODO incrementer le score 
 		}
+		System.out.println("score actuel : ");
 		System.out.println(scoreService.recupererScoreOfUserForQuiz(idUser, idQuiz).getValue());
 		int nmaxQuestions = quizService.recupererQuiz(idQuiz).getQuestions().size();
 		
@@ -307,12 +299,17 @@ public class QuizController {
 			}
 		if(questionService.recupererQuestions().isEmpty()) {
 			questionService.ajouterQuestion("What is Carl's favorite food?", null, niveauService.recupererNiveau(1L), "Mariage", quizService.recupererQuiz(1L));
+			questionService.ajouterQuestion("What is Marc favorite food?", null, niveauService.recupererNiveau(1L), "Mariage", quizService.recupererQuiz(1L));
 		}
 		if(reponseService.recupererReponses().isEmpty()) {
 		reponseService.ajouterReponse("Cake", true, questionService.recupererQuestion(1L));
 		reponseService.ajouterReponse("Brownies", false, questionService.recupererQuestion(1L));
 		reponseService.ajouterReponse("Pasta", false, questionService.recupererQuestion(1L));
 		reponseService.ajouterReponse("Pizza", false, questionService.recupererQuestion(1L));
+		reponseService.ajouterReponse("Cake", true, questionService.recupererQuestion(2L));
+		reponseService.ajouterReponse("Brownies", false, questionService.recupererQuestion(2L));
+		reponseService.ajouterReponse("Pasta", false, questionService.recupererQuestion(2L));
+		reponseService.ajouterReponse("Pizza", false, questionService.recupererQuestion(2L));
 		}
 	}
 }
