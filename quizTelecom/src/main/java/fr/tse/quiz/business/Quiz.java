@@ -2,14 +2,14 @@ package fr.tse.quiz.business;
 
 import java.util.List;
 
-
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 
 @Entity
 public class Quiz {
@@ -23,7 +23,7 @@ public class Quiz {
 	@ManyToOne
 	private User user;
 	
-	@OneToMany(mappedBy = "quiz")
+	@OneToMany(mappedBy = "quiz", cascade=CascadeType.REMOVE)
 	private List<Question> questions;
 	
 	public Quiz() {

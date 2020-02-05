@@ -17,32 +17,68 @@
    <!--<script type="text/javascript">$(document).ready(function() {$('#tableau').DataTable({"pageLength": 10} );} );</script>-->
 </head>
 <body>
-	<nav class="navbar navbar-light bg-light">
-	  <span class="navbar-brand mb-0 h1">Bonjour</span>
-	  <a class="navbar-brand" href="pageadmin">Home</a>
-	  <a class="navbar-brand" href="newQuiz">Créer un nouveau Quiz</a>
-	  <a class="navbar-brand" href="index">Deconnexion</a>
-	</nav>
-	
-	<table class="table-responsive">
-	  <tbody>
-		<c:forEach var="i" begin="0" end="1" step="1">
-	    <tr>
-	    <c:forEach var="i" begin="0" end="2" step="1">	
-	    <td>
-		    <div class="card text-center" style="width: 18rem;">
-			  <div class="card-body">
-			    <h5 class="card-title">titre du quiz</h5>
-			    <p class="card-text">Description du quiz</p>
-			    <a href="#" class="btn btn-primary">Faire ce Quiz</a>
-			  </div>
-		  </div>
-		</td>
-		</c:forEach>
-	    </tr>
-	    </c:forEach>
-	  </tbody>
-	</table>
-	
+<header class="navbar navbar-light bg-light">
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="navbar-brand" href="pageadmin">Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="navbar-brand" href="newQuiz">Quiz</a>
+      </li>
+    </ul>
+  </div>
+  <ul class="navbar-nav ml-md-auto">
+    <li class="nav-item">
+    	<span class="navbar-brand mb-0 h1">Bonjour ${userConnecte.identifiant} </span>
+    </li>
+  </ul>
+ <a class="btn d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="index">Deconnexion</a>
+</header>
+	<section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Bienvenue à La Main: Quiz!</h1>
+          <p class="lead text-muted">Administration</p>
+          
+        </div>
+      </section>
+      
+<div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+          <c:forEach items="${quizs}" var="quiz" varStatus="status">
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+        
+                <div class="card-body box-shadow"  style="height: 200px; width: 100%; display: block; background-color:#55595c;">
+                 <p class="card-text"><h5 class="card-title" style="color:white; margin-top:50px; text-align: center;">${quiz.intitule}</h5></p>
+                </div>
+                <div class="card-body">
+                 <div class="btn-group">
+                     
+                      <a href="/delete?IDQ=${quiz.id}" id="submitButton" class="btn btn-sm btn-outline-secondary">Delete</a> 
+                      
+                    </div>
+     
+                  </div>
+                </div>
+              </div>
+              </c:forEach>
+            </div>
+           
+           
+            
+          </div>
+        </div>
+
 </body>
+<script>
+ $(document).ready(function(){
+  $("#submitButton").on("click",function()
+  {
+   alert('Le quiz a été suprimmé');
+  });
+
+});
+</script>
 </html>

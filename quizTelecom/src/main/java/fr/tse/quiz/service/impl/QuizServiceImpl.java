@@ -18,14 +18,21 @@ public class QuizServiceImpl implements QuizService {
 	private QuizDao quizDAO;
 	
 	@Override
-	public Quiz ajouterQuiz(String intitule, User user) {
+	public Quiz ajouterQuiz(String intitule, User user, List<Question> questions) {
 		// TODO Auto-generated method stub
 		Quiz quiz = new Quiz();
 		quiz.setIntitule(intitule);
 		quiz.setUser(user);
-		
-		return quiz;
+		quiz.setQuestions(questions);
+		return quizDAO.save(quiz);
 	}
+	
+	/*@Override
+	public Quiz ajouterQuiz(String intitule) {
+		Quiz quiz = new Quiz();
+		quiz.setIntitule(intitule);
+		return quizDAO.save(quiz);
+	}*/
 
 	@Override
 	public void supprimerQuiz(Quiz quiz) {
@@ -44,6 +51,13 @@ public class QuizServiceImpl implements QuizService {
 	public Quiz recupererQuiz(Long id) {
 		// TODO Auto-generated method stub
 		return quizDAO.findOne(id);
+	}
+
+	@Override
+	public void mettreaJour(Quiz quiz) {
+		// TODO Auto-generated method stub
+		
+		
 	}
 
 }

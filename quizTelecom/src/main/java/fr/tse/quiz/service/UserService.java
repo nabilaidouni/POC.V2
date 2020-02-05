@@ -8,13 +8,13 @@ import fr.tse.quiz.business.User;
 
 public interface UserService {
 	
-	User ajouterUser(String motDePasse, String identifiant, Boolean admin);
-	
-	void ajouterQuiz(User user, Quiz quiz);
+	User ajouterUser(String motDePasse, String identifiant, Boolean admin, Map<String,Long> scoreAtQuiz, List<Quiz> quizs);
 	
 	List<User> recupererUsers();
 
 	User recupererUser(Long id);
+	
+	User recupererUser(String id);
 	
 	void supprimerUser(User user);
 

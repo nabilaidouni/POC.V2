@@ -1,6 +1,5 @@
 package fr.tse.quiz.service.impl;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -24,14 +23,15 @@ public class UserServiceImpl implements UserService{
 	private UserDao userDAO;
 	
 	@Override
-	public User ajouterUser(String motDePasse, String identifiant, Boolean admin) {
+	public User ajouterUser(String motDePasse, String identifiant, Boolean admin, Map<String,Long> scoreAtQuiz, List<Quiz> quizs) {
 		// TODO Auto-generated method stub
 		User user = new User();
 		user.setMotDePasse(motDePasse);
 		user.setIdentifiant(identifiant);
 		user.setAdmin(admin);
-		userDAO.save(user);
-		return user;
+		//user.setScoreAtQuiz(scoreAtQuiz);
+		user.setQuizs(quizs);
+		return userDAO.save(user);
 	}
 
 	@Override
@@ -46,6 +46,10 @@ public class UserServiceImpl implements UserService{
 		return userDAO.findOne(id);
 	}
 	
+	public User recupererClient(String identifiant) {
+		return userDAO.findClientByIdentifiant(identifiant);
+	}
+	
 	@Override
 	public void supprimerUser(User user) {
 		
@@ -53,12 +57,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public void ajouterQuiz(User user, Quiz quiz) {
-		List<Quiz> quizes = new ArrayList<Quiz>();
-		quizes.add(quiz);
-		user.setQuizs(quizes);
-		userDAO.save(user);
-		
+	public User recupererUser(String id) {
+		// TODO Auto-generated method stub
+		return userDAO.findClientByIdentifiant(id);
 	}
 
 }

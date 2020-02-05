@@ -26,7 +26,7 @@ public class ReponseServiceImpl implements ReponseService{
 		reponse.setIntitule(intitule);
 		reponse.setIsCorrect(isCorrect);
 		reponse.setQuestion(question);
-		return reponse;
+		return reponseDAO.save(reponse);
 	}
 
 	@Override

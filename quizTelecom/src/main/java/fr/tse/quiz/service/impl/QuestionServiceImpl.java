@@ -27,7 +27,7 @@ public class QuestionServiceImpl implements QuestionService {
 		question.setNiveau(niveau);
 		question.setTheme(theme);
 		question.setQuiz(quiz);
-		return question;
+		return questionDAO.save(question);
 	}
 
 	@Override
@@ -45,6 +45,12 @@ public class QuestionServiceImpl implements QuestionService {
 	@Override
 	public void supprimerQuestion(Question question) {
 		questionDAO.delete(question);
+	}
+	
+	@Override
+	public void ajouterReponses(List<Reponse> reponses, Question question) {
+		question.setReponses(reponses);
+		questionDAO.save(question);
 	}
 
 }

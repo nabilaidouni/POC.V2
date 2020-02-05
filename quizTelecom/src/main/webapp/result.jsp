@@ -1,77 +1,63 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
+<title>Result Client</title>
 <link href="style/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-   	<!-- jQuery et popper toujours avant JS !	 -->
-   	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  	
-	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
-	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
-<title>Result</title>
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<!-- jQuery et popper toujours avant JS !	 -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
+
 </head>
-<body class="text-center" >
+<body style="background-color: #e9ecef">
+<header class="navbar navbar-light bg-light">
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="navbar-brand" href="pageclient?IDU=${userConnecte.identifiant}">Home</a>
+      </li>
+    </ul>
+  </div>
+  <ul class="navbar-nav ml-md-auto">
+    <li class="nav-item">
+    	<span class="navbar-brand mb-0 h1">Bonjour ${userConnecte.identifiant} </span>
+    </li>
+  </ul>
+ <a class="btn d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="index">Deconnexion</a>
+</header>
 
-<div class="cover-container d-flex h-100 p-3 mx-auto flex-column" >
-     
-
-      <main role="main" class="inner cover">
-        <h1 class="cover-heading">Félicitations ${user.identifiant}!</h1>
-        <p class="lead">Vous avez terminé le quiz ${quiz.intitule}. </p>
-        <p class="lead">Voici votre score: ${score.value}. </p>
-        <p class="lead">
-          <a href="#" class="btn btn-lg btn-secondary">Rejouer!</a>
-        </p>
-      </main>
-
-     
-    </div>
+	<div class="text-center cover-container d-flex h-100 p-3 mx-auto flex-column" style="margin-top:150px" >
+	
+        <div class="container">
+          <h1 class="jumbotron-heading">Félicitations ${userConnecte.identifiant}!</h1>
+          <p class="lead text-muted">Vous avez terminé le quiz ${quiz.intitule}.</p>
+          <div class="col-9" style="border: solid #333;  margin: auto;">
+          	<c:forEach items="${quiz.questions}" var="question">
+          		<p class="lead text-muted"> La bonne réponse à la question</p> <h5>${question.intitule} est 
+          		<c:forEach items="${question.reponses}" var="reponse">
+          		 <c:if test = "${reponse.isCorrect}">
+          			${reponse.intitule} </h5>
+          		</c:if>
+          	</c:forEach>
+          		<p class="lead text-muted">Niveau question: ${question.niveau.intitule}.</p>
+          </c:forEach>
+          </div>
+          <br>
+          <h1 class="jumbotron-heading">Voici votre score: ${score.value}.</h1>
+        <br>
+          <a href="/pageclient?IDU=${userConnecte.identifiant}" class="btn btn-lg btn-outline-secondary">Rejouer!</a>
+        </div>
  
-  
+      </div>
 
 </body>
 </html>
-<style>
-
-.cover {
-    padding: 0 1.5rem;
-}
-
- .text-center {
-    text-align: center !important;}
-   .lead {
-    font-size: 1.25rem;
-    font-weight: 300;
-}
-    body {
-margin-top: 200px;
-   justify-content: center;
-text-shadow: 0 .05rem .1rem
-rgba(0, 0, 0, .5);
-height: 100%;
-background-color:#333;
-color: #fff;
-font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
-font-size: 1rem;
-font-weight: 400;
-line-height: 1.5;
-}
- h1 {
-    font-size: 2.5rem;
-    margin-bottom: .5rem;
-    font-family: inherit;
-    font-weight: 500;
-    line-height: 1.2;
-    color: inherit;
-}
-
-
-</style>
 
       
 

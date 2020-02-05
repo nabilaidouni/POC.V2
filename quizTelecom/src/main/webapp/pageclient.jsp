@@ -15,29 +15,54 @@
 <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
 </head>
 <body>
-	<nav class="navbar navbar-light bg-light">
-	  <span class="navbar-brand mb-0 h1">Bonjour</span>
-	  <a class="navbar-brand" href="">Home</a>
-	  <a class="navbar-brand" href="index">Deconnexion</a>
-	</nav>
-	<table class="table">
-	  <tbody>
-		<c:forEach var="i" begin="0" end="1" step="1">
-	    <tr>
-	    <c:forEach var="i" begin="0" end="2" step="1">	
-	    <td>
-		    <div class="card text-center" style="width: 18rem;">
-			  <div class="card-body">
-			    <h5 class="card-title">titre du quiz</h5>
-			    <p class="card-text">Description du quiz</p>
-			    <a href="#" class="btn btn-primary">Faire ce Quiz</a>
-			  </div>
-		  </div>
-		</td>
-		</c:forEach>
-	    </tr>
-	    </c:forEach>
-	  </tbody>
-	</table>
+<header class="navbar navbar-light bg-light">
+  <div class="navbar-nav-scroll">
+    <ul class="navbar-nav bd-navbar-nav flex-row">
+      <li class="nav-item">
+        <a class="navbar-brand" href="pageclient?IDU=${userConnecte.identifiant}">Home</a>
+      </li>
+    </ul>
+  </div>
+  <ul class="navbar-nav ml-md-auto">
+    <li class="nav-item">
+    	<span class="navbar-brand mb-0 h1">Bonjour ${userConnecte.identifiant} </span>
+    </li>
+  </ul>
+ <a class="btn d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="index">Deconnexion</a>
+</header>
+	<section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Bienvenue à La Main: Quiz!</h1>
+          <p class="lead text-muted">Choisissez le quiz auquel vous souhaitez jouer.</p>
+          <button type="button" class="btn btn-lg btn-outline-secondary">Amuse toi bien!</button>
+        </div>
+      </section>
+      
+<div class="album py-5 bg-light">
+        <div class="container">
+          <div class="row">
+          <c:forEach items="${Quiz}" var="quiz" varStatus="status">
+            <div class="col-md-4">
+              <div class="card mb-4 box-shadow">
+        
+                <div class="card-body box-shadow"  style="height: 200px; width: 100%; display: block; background-color:#55595c;">
+                 <p class="card-text"><h5 class="card-title" style="color:white; margin-top:50px; text-align: center;">${quiz.intitule}</h5></p>
+                </div>
+                <div class="card-body">
+                  <div class="d-flex justify-content-between align-items-center" style="float:right">
+    				<a href="/questionsJeu?IDQ=${quiz.id }&IDU=${userConnecte.id}" class="btn btn-primary"  style="background-color:#333; border:white;">Faire ce Quiz</a>
+                    </div>
+                    
+                  </div>
+                </div>
+              </div>
+              </c:forEach>
+            </div>
+           
+           
+            
+          </div>
+        </div>
+
 </body>
 </html>

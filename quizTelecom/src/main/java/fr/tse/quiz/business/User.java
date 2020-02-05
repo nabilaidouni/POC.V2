@@ -22,7 +22,7 @@ public class User {
 	
 	private Boolean admin;
 	
-	
+	//private Map<String,Long> scoreAtQuiz;
 	
 	@OneToMany(mappedBy = "user")
 	private List<Quiz> quizs;
@@ -62,6 +62,14 @@ public class User {
 	public void setAdmin(Boolean admin) {
 		this.admin = admin;
 	}
+
+	/*public Map<String, Long> getScoreAtQuiz() {
+		return scoreAtQuiz;
+	}
+
+	public void setScoreAtQuiz(Map<String, Long> scoreAtQuiz) {
+		this.scoreAtQuiz = scoreAtQuiz;
+	}*/
 
 	public List<Quiz> getQuizs() {
 		return quizs;

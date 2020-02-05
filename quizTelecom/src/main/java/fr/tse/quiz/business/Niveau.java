@@ -16,12 +16,21 @@ public class Niveau {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+	
 	private String intitule;
 	
 	@OneToMany(mappedBy = "niveau")
 	private List<Question> questions;
 	
 	
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public Niveau() {
 		super();
 	}

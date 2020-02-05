@@ -13,19 +13,17 @@
   	
 	<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"/>
 	<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"></script>
-<title>Inscription</title>
+<title>La main: Inscription</title>
 </head>
-	<body>
-		<div class="text-center"><h1 class="display-1">Inscription</h1></div>
-		<div class= "container">
-		</div>
-		
+	<body style="background-color:#f5f5f5">
+		<div class="container" style=" margin-top:150px;">
+		<div class="text-center login-logo">
+    		<h2 style= "color: #333"><b>La main: Quiz</b><br> Inscription</h2>
+  		</div>
+  		<div class="row">
+ 			 <div class="col-6" style="border: solid #333 ; margin: auto; " >		
 		<form  action="inscriptionPost" method="post" class="container rounded">
-		<div class="form-group">
-		    <label for="nom">Nom:</label>
-		    <input type="text" class="form-control" name="NOM" placeholder="Entrez votre nom" required>
-		  </div>
-		  <div class="form-group">
+		  <div class="form-group" style="margin-top:20px">
 		    <label for="identifiant">Pseudo:</label>
 		    <input type="text" class="form-control" name="IDENTIFIANT" placeholder="Entrez votre identifiant" required>
 		  </div>
@@ -37,7 +35,16 @@
 		    <label for="code_admin">Pour vous inscrire en tant qu'admin, entrez le code admin:</label>
 		    <input type="password" class="form-control" name="CODE_ADMIN" placeholder="Password">
 		  </div>
-		  <button type="submit" class="btn btn-primary">S'inscrire</button>
+		  <div style="float:right; margin-bottom:20px" class="col-xs-4">
+		  <button type="submit" class="btn btn-primary"  style="background-color:#333; border:white;">S'inscrire</button>
+		  </div>
 		</form>
+			
+		<div class="container">
+		<h5><a href="/" style="color:#333">Retour</a></h5>
+		</div>
+		</div>
+		</div>
+		</div>
 	</body>
 </html>
